@@ -1,6 +1,5 @@
 import random
 
-
 class Sensor:
     value: float
     name: str
@@ -16,22 +15,22 @@ class Sensor:
         return self.value
 
     def __str__(self):
-        return {"type": self.type, "name": self.name, "value": self.value}
+        return str({"type": self.type, "name": self.name, "value": self.value})
 
 
 class Temperature(Sensor):
-    step = 25
+    step = 15
 
     def __init__(self, name):
         super().__init__(name)
-        self.type = "temp"
+        self.type = "temperature"
 
     def generate_new_value(self):
         self.value = random.random() + self.step
 
 
 class Pressure(Sensor):
-    step = 55
+    step = 65
 
     def __init__(self, name):
         super().__init__(name)
@@ -52,3 +51,16 @@ class Current(Sensor):
         import math
         self.value = math.sin(self.step)
         self.step = self.step + 1
+
+
+class Humidity(Sensor):
+    step=0
+
+    def __init__(self,name):
+        super().__init__(name)
+        self.type="humidity"
+
+    def generate_new_value(self):
+        import math
+        self.value=math.cos(self.step+3)
+        self.step=self.step+4
