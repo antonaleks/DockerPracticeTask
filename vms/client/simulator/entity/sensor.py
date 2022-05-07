@@ -49,7 +49,7 @@ class Current(Sensor):
 
     def generate_new_value(self):
         import math
-        self.value = math.sin(self.step)
+        self.value = math.sin(self.step)+2
         self.step = self.step + 1
 
 
@@ -62,5 +62,5 @@ class Humidity(Sensor):
 
     def generate_new_value(self):
         import math
-        self.value=math.cos(self.step+3)
+        self.value=(math.cos(self.step+3)+2)*10
         self.step=self.step+4
