@@ -104,7 +104,7 @@ services:
 
 ![](./assets/images/Screenshot_14.png) 
 
-Осуществялем подключение и настраиваем Dashboard
+Осуществляем подключение и настраиваем Dashboard
 
 ![](./assets/images/Screenshot_21.png) 
 
