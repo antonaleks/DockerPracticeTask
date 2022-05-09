@@ -4,7 +4,7 @@
 
 Для генерации данных создаём класс Sensor.
 
-Далее определяем 4 типа датчика, наследники ранее созданного класса: Temperature, Pressure, Current, Humidity. Код хранится в файле sensor.py:
+Далее определяем 4 типа датчика, наследники ранее созданного класса: Temperature, Pressure, Current, Humidity. Код хранится в файле sensor.py
 ```
 class Sensor:
     value: float
@@ -37,17 +37,16 @@ CMD ["python", "main.py"]
 Выполним сборку докер - образа с помощью следующией команды:
 ```
 sudo docker build -t primaklubov/sim_sensor .
-
 ```
 ![](./assets/images/Screenshot_7.png) 
 
-Далее запускаем докер контейнер брокера mosquitto c помощью команды:
+Далее запускаем докер контейнер брокера mosquitto c помощью команды
 ```
 sudo docker run --rm -p 1883:1883 -v $PWD/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf --name broker eclipse-mosquitto
 ```
 ![](./assets/images/Screenshot_2.png) 
 
-Проверяем подключение:
+Проверяем подключение
 
 ![](./assets/images/Screenshot_5.png) 
 
@@ -96,7 +95,6 @@ services:
       - SIM_NAME=sim_4
       - SIM_PERIOD=10
       - SIM_TYPE=humidity      
-
 ```
 Запускаем файл и проверяем работу
 
@@ -118,24 +116,22 @@ services:
 
 ![](./assets/images/Screenshot_20.png) 
 
-##Команды для виртуальных машин
 
-###Gateway
+## Команды для виртуальных машин
+
+### Gateway
 ```
 sudo docker run --rm -p 1883:1883 -v $PWD/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf --name broker eclipse-mosquitto
-
 ```
 
-###Client
+### Client
 ```
 sudo docker-compose up --no-deps --build
-
 ```
 
-###Server
+### Server
 ```
 sudo docker-compose up
-
 ```
 
 
