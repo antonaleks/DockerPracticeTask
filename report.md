@@ -6,8 +6,7 @@
 
 ![1- version c](https://user-images.githubusercontent.com/25878224/234697182-737a155a-0f8f-4ab9-84e7-6c8fa20391fb.PNG)
 
-# .
-1- Create the four Sensors classes (Temperature, Pressure, Current, Humidity) by module "sensor.py"
+-  Create the four Sensors classes (Temperature, Pressure, Current, Humidity) by module "sensor.py"
 
 ![A- 1 sensor ](https://user-images.githubusercontent.com/25878224/235059677-3d219643-9710-4199-8916-76d7c819f968.PNG)
 
