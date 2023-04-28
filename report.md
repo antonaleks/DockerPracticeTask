@@ -44,9 +44,12 @@
 
 ![3-1 test sensor](https://user-images.githubusercontent.com/25878224/235064130-5a82d272-818a-49ae-8d53-3e826f6a8cc0.PNG)
 
-![3-4 tesetsensor](https://user-images.githubusercontent.com/25878224/235064211-247cd9fa-c7db-4bc4-9165-26b15aa9bb3c.PNG)
-
 ![3-5 test sensor](https://user-images.githubusercontent.com/25878224/235064223-3cd49436-a18d-48c3-95dd-cdaabfba1424.PNG)
+
+- And check with mqtt explorer
+
+![5-1 mqtt](https://user-images.githubusercontent.com/25878224/235063223-29384927-36ec-483a-9fc8-d1ceedeb4c9f.PNG)
+
 
 - Pushing the Image to DockerHub
 
@@ -56,11 +59,10 @@
 
 ![3-2 tesetsensor](https://user-images.githubusercontent.com/25878224/235063689-efbb0454-b255-4288-be44-e04beb389fe8.PNG)
 
+![3-4 tesetsensor](https://user-images.githubusercontent.com/25878224/235064211-247cd9fa-c7db-4bc4-9165-26b15aa9bb3c.PNG)
+
 ![3-2 -1 tesetsensor](https://user-images.githubusercontent.com/25878224/235063939-1f29b84a-4c0a-48d7-a14a-d1f702212b1b.PNG)
 
-- And check with mqtt explorer
-
-![5-1 mqtt](https://user-images.githubusercontent.com/25878224/235063223-29384927-36ec-483a-9fc8-d1ceedeb4c9f.PNG)
 
 - Check with mqtt explorer
 
