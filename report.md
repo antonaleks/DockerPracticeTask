@@ -68,3 +68,35 @@
 
 ![5-3 mqtt](https://user-images.githubusercontent.com/25878224/235063315-6e97974e-e161-4947-bbc2-f03dd62ec598.PNG)
 
+- After that, we create a docker-compose file:
+
+![4- 2 dockercompose](https://user-images.githubusercontent.com/25878224/235065175-017622e7-1f0a-4d53-8530-821f787057d6.PNG)
+
+![4- 3 dockercompose](https://user-images.githubusercontent.com/25878224/235065490-44a39c93-4680-4972-ba9f-0e221ed66b24.PNG)
+
+ In Linux A: 
+- Influxdb 
+Run a container with a database with an attached volume (version 1.8)
+
+![influxdb 1](https://user-images.githubusercontent.com/25878224/235066231-131e54e7-93a2-429a-a40a-985b413cb592.PNG)
+
+- Telegraf - configration file
+
+![telegraf conf](https://user-images.githubusercontent.com/25878224/235066474-db765f99-3908-4e73-91b8-e5f41a9dab50.PNG)
+
+- Now we have:
+
+![f1](https://user-images.githubusercontent.com/25878224/235067314-9b0fc5e7-03e6-416f-b010-4e83445e7e5f.PNG)
+
+![f2](https://user-images.githubusercontent.com/25878224/235067324-c976bfbf-e29b-4f4d-8f3a-6e31e4770036.PNG)
+
+![f3](https://user-images.githubusercontent.com/25878224/235067345-81b4ed28-8be9-4f21-a521-2d03533cb9f8.PNG)
+
+- Grafana on port 3000
+
+![grafana 1- 1 ](https://user-images.githubusercontent.com/25878224/235066132-86838126-656b-4e4c-93b2-56bb8ef54275.PNG)
+
+![grafana 2](https://user-images.githubusercontent.com/25878224/235066148-0315a22a-b44e-4f40-9255-a9e12daf1329.PNG)
+
+
+
