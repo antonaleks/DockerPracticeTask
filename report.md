@@ -18,12 +18,12 @@
 
 - Configure the docker image configuration file (DockerFile)
 
-FROM python:3.7
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["python", "main.py"]
+      FROM python:3.7
+      WORKDIR /app
+      COPY requirements.txt .
+      RUN pip install -r requirements.txt
+      COPY . .
+      CMD ["python", "main.py"]
 
 
 
