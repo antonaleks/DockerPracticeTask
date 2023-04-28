@@ -11,8 +11,6 @@
 1- Create the four Sensors classes (Temperature, Pressure, Current, Humidity) by module "sensor.py"
 
 import random
-
-
 class Sensor:
     value: float
     name: str
@@ -29,8 +27,6 @@ class Sensor:
 
     def __str__(self):
         return {"type": self.type, "name": self.name, "value": self.value}
-
-
 class Temperature(Sensor):
     step = 25
 
@@ -40,8 +36,6 @@ class Temperature(Sensor):
 
     def generate_new_value(self):
         self.value = random.random() + self.step
-
-
 class Pressure(Sensor):
     step = 55
 
@@ -51,8 +45,6 @@ class Pressure(Sensor):
 
     def generate_new_value(self):
         self.value = random.random() + self.step - 56.48 + 25 * 7
-
-
 class Current(Sensor):
     step = 0
 
@@ -64,8 +56,6 @@ class Current(Sensor):
         import math
         self.value = math.sin(self.step)
         self.step = self.step + 1
-
-
 class Humidity(Sensor):
     step = 0
 
