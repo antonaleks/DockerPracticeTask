@@ -16,6 +16,16 @@
 
 ![A- 3 sensor ](https://user-images.githubusercontent.com/25878224/235059716-a834701f-fe0b-4e9d-96f6-67001fc99398.PNG)
 
+- Configure the docker image configuration file (DockerFile)
+
+FROM python:3.7
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "main.py"]
+
+
 
 
 # Linux B
