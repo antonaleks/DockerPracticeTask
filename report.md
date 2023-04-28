@@ -10,67 +10,13 @@
 # Linux A
 1- Create the four Sensors classes (Temperature, Pressure, Current, Humidity) by module "sensor.py"
 
-import random
-class Sensor:
-    value: float
-    name: str
-    type: str
+![A- 1 sensor ](https://user-images.githubusercontent.com/25878224/235059677-3d219643-9710-4199-8916-76d7c819f968.PNG)
 
-    def __init__(self, name):
-        self.name = name
+![A- 2 sensor ](https://user-images.githubusercontent.com/25878224/235059709-062cf237-5f9e-4ea0-8bdf-b74e7459d3a2.PNG)
 
-    def generate_new_value(self):
-        pass
+![A- 3 sensor ](https://user-images.githubusercontent.com/25878224/235059716-a834701f-fe0b-4e9d-96f6-67001fc99398.PNG)
 
-    def get_data(self):
-        return self.value
 
-    def __str__(self):
-        return {"type": self.type, "name": self.name, "value": self.value}
-class Temperature(Sensor): 
-
-    step = 25
-
-    def __init__(self, name):
-        super().__init__(name)
-        self.type = "temp"
-
-    def generate_new_value(self):
-        self.value = random.random() + self.step
-class Pressure(Sensor):
-
-    step = 55
-
-    def __init__(self, name):
-        super().__init__(name)
-        self.type = "pressure"
-
-    def generate_new_value(self):
-        self.value = random.random() + self.step - 56.48 + 25 * 7
-class Current(Sensor):
-
-    step = 0
-
-    def __init__(self, name):
-        super().__init__(name)
-        self.type = "current"
-
-    def generate_new_value(self):
-        import math
-        self.value = math.sin(self.step)
-        self.step = self.step + 1
-class Humidity(Sensor):
-
-    step = 0
-
-    def __init__(self, name):
-        super().__init__(name)
-        self.type = "humidity"
-
-    def generate_new_value(self):
-        import math
-        self.value = (math.cos(self.step + 3) + 2) * 10
-        self.step = self.step + 4
 
 # Linux B
 
