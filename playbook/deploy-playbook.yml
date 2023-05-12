@@ -1,0 +1,113 @@
+- hosts: gateway
+  become: yes
+  become_method: sudo
+  vars:
+    packages:
+      - net-tools
+      - docker.io
+      - docker-compose
+
+
+  tasks:
+
+    - name: installing packages
+      ansible.builtin.apt:
+        pkg: "{{packages}}"
+        state: latest
+
+    - name: import netplan cfg for gateway
+      ansible.builtin.template:
+        src: "{{gateway_net_src}}"
+        dest: "{{gateway_net_dest}}"
+        owner: root
+        group: root
+        mode: '0644'
+
+
+    - name: copying broker
+      ansible.builtin.copy:
+        src: "{{broker_src}}"
+        dest: "{{broker_dest}}"
+        owner: root
+        group: root
+        mode: '0644'
+
+
+- hosts: server
+  become: yes
+  become_method: sudo
+  vars:
+    packages:
+      - net-tools
+      - python3-pip
+      - docker.io
+      - docker-compose
+
+  tasks:
+
+
+    - name: installing pkg
+      ansible.builtin.apt:
+        pkg: "{{ packages }}"
+        state: latest
+
+    - name: copying grafana and telegraf
+      ansible.builtin.copy:
+        src: "{{server_infra}}"
+        dest: /home/armitage/remote
+        owner: "{{server_user}}"
+        group: "{{server_user}}"
+        mode: '0644'
+
+
+#     - name: restarting net adapter
+#       shell: ifconfig enp0s8 down
+
+
+    - name: Update netplan cfg on server
+      ansible.builtin.template:
+        src: "{{server_net_src}}"
+        dest: "{{server_net_dest}}"
+        owner: root
+        group: root
+        mode: '0644'
+
+
+    - name: docker-compose up on server
+      docker_compose:
+        project_src: "{{docker_src_server}}"
+
+    # - name: netplan apply
+    #   shell: netplan apply
+
+
+- hosts: client
+  become: yes
+  become_method: sudo
+
+  tasks:
+
+    - name: copying simulator
+      ansible.builtin.copy:
+        src: "{{simulator_src}}"
+        dest: "{{simulator_dest}}"
+        owner: "{{client_user}}"
+        group: "{{client_user}}"
+        mode: '0644'
+
+
+    - name: cfg for client host
+      ansible.builtin.template:
+          src: "{{client_cfg_src}}"
+          dest: "{{client_cfg_dest}}"
+          owner: root
+          group: root
+          mode: '0644'
+
+
+    - name: docker-compose up on client
+      docker_compose:
+        project_src: "{{docker_src_client}}"
+
+
+

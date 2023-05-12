@@ -1,0 +1,8 @@
+---
+gateway_net_src: vms/gateway/00-installer-config.yaml
+gateway_net_dest: /etc/netplan/00-installer-config.yaml
+gateway_rules_src: vms/gateway/rules.v4
+gateway_rules_dest: /etc/iptables/rules.v4
+broker_src: vms/gateway/
+broker_dest: /home/armitage/remote
+gateway_user: armitage

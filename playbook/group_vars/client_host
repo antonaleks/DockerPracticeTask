@@ -1,0 +1,7 @@
+---
+client_cfg_src: vms/client/00-installer-config.yaml
+client_cfg_dest: /etc/netplan/00-installer-config.yaml
+simulator_src: vms/client/simulator/
+simulator_dest: /home/armitage/remote
+client_user: armitage
+docker_src_client: /home/armitage/remote

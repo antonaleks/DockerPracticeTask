@@ -1,0 +1,6 @@
+---
+server_net_src: vms/server/00-installer-config.yaml
+server_net_dest: /etc/netplan/00-installer-config.yaml
+server_infra: vms/server/infra/
+server_user: armitage
+docker_src_server: /home/armitage/remote
