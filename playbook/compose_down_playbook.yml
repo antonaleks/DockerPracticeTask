@@ -1,4 +1,4 @@
-- hosts: gateway
+- hosts: server
   become: yes
   become_method: sudo
 
@@ -6,5 +6,24 @@
   tasks:
     - name: docker compose down
       docker_compose:
-        
+
+
+
+- hosts: client
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: docker compose down
+      docker_compose:
+
+
+- hosts: gateway
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: docker compose down
+      docker_compose:
+
     

@@ -6,3 +6,4 @@ gateway_rules_dest: /etc/iptables/rules.v4
 broker_src: vms/gateway/
 broker_dest: /home/armitage/remote
 gateway_user: armitage
+mosquitto_src: /home/armitage/remote/mosquitto:/mosquitto/config

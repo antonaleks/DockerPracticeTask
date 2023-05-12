@@ -23,6 +23,9 @@
         group: root
         mode: '0644'
 
+    - name: prune phase
+      shell:
+        cmd: docker images -a -q|xargs -r docker rmi -f
 
     - name: copying broker
       ansible.builtin.copy:
@@ -31,6 +34,18 @@
         owner: root
         group: root
         mode: '0644'
+
+
+    - name: starting mqtt broker
+      docker_container:
+        name: broker
+        image: eclipse-mosquitto
+        state: started
+        ports: 
+          - "1883:1883"
+        volumes: 
+          - "{{mosquitto_src}}"
+
 
 
 - hosts: server
@@ -72,6 +87,9 @@
         group: root
         mode: '0644'
 
+    - name: prune phase
+      shell:
+        cmd: docker images -a -q|xargs -r docker rmi -f
 
     - name: docker-compose up on server
       docker_compose:
@@ -104,7 +122,10 @@
           group: root
           mode: '0644'
 
-
+    - name: prune phase
+      shell:
+        cmd: docker images -a -q|xargs -r docker rmi -f
+        
     - name: docker-compose up on client
       docker_compose:
         project_src: "{{docker_src_client}}"
