@@ -52,7 +52,6 @@
         group: root
         mode: '0644'
 
-
     - name: starting mqtt broker
       docker_container:
         name: broker
@@ -89,10 +88,8 @@
         group: "{{server_user}}"
         mode: '0644'
 
-
     - name: restarting net adapter
       shell: ifconfig enp0s8 down
-
 
     - name: Update netplan cfg on server
       ansible.builtin.template:
@@ -158,7 +155,6 @@
 
     - name: restarting net adapter
       shell: ifconfig enp0s8 down
-
 
     - name: cfg for client host
       ansible.builtin.template:
