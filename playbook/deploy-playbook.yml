@@ -23,9 +23,26 @@
         group: root
         mode: '0644'
 
-    - name: prune phase
-      shell:
-        cmd: docker images -a -q|xargs -r docker rmi -f
+    - docker_host_info:
+        images: yes
+        containers: yes
+      register: docker_objects
+
+    - docker_container:
+        name: "{{ item.Id }}"
+        state: absent
+      loop: "{{ docker_objects.containers }}"
+      loop_control:
+        label: "{{ item.Id }}"
+
+    - docker_image:
+        name: item.RepoTags | first
+        state: absent
+        force_absent: yes
+      loop: "{{ docker_objects.images }}"
+      loop_control:
+        label: "{{ item.RepoTags | first }}"
+
 
     - name: copying broker
       ansible.builtin.copy:
@@ -47,8 +64,73 @@
           - "{{mosquitto_src}}"
 
 
-
 - hosts: server
+  become: yes
+  become_method: sudo
+  vars:
+    packages:
+      - net-tools
+      - python3-pip
+      - docker.io
+      - docker-compose
+
+  tasks:
+
+    - name: installing pkg
+      ansible.builtin.apt:
+        pkg: "{{ packages }}"
+        state: latest
+
+    - name: copying grafana and telegraf
+      ansible.builtin.copy:
+        src: "{{server_infra}}"
+        dest: "{{docker_src_server}}"
+        owner: "{{server_user}}"
+        group: "{{server_user}}"
+        mode: '0644'
+
+
+    - name: restarting net adapter
+      shell: ifconfig enp0s8 down
+
+
+    - name: Update netplan cfg on server
+      ansible.builtin.template:
+        src: "{{server_net_src}}"
+        dest: "{{server_net_dest}}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - docker_host_info:
+        images: yes
+        containers: yes
+      register: docker_objects
+
+    - docker_container:
+        name: "{{ item.Id }}"
+        state: absent
+      loop: "{{ docker_objects.containers }}"
+      loop_control:
+        label: "{{ item.Id }}"
+
+    - docker_image:
+        name: item.RepoTags | first
+        state: absent
+        force_absent: yes
+      loop: "{{ docker_objects.images }}"
+      loop_control:
+        label: "{{ item.RepoTags | first }}"
+
+    - name: docker-compose up on server
+      docker_compose:
+        project_src: "{{docker_src_server}}"
+
+    # - name: netplan apply
+    #   shell: netplan apply
+
+
+- hosts: client
   become: yes
   become_method: sudo
   vars:
@@ -66,45 +148,6 @@
         pkg: "{{ packages }}"
         state: latest
 
-    - name: copying grafana and telegraf
-      ansible.builtin.copy:
-        src: "{{server_infra}}"
-        dest: /home/armitage/remote
-        owner: "{{server_user}}"
-        group: "{{server_user}}"
-        mode: '0644'
-
-
-#     - name: restarting net adapter
-#       shell: ifconfig enp0s8 down
-
-
-    - name: Update netplan cfg on server
-      ansible.builtin.template:
-        src: "{{server_net_src}}"
-        dest: "{{server_net_dest}}"
-        owner: root
-        group: root
-        mode: '0644'
-
-    - name: prune phase
-      shell:
-        cmd: docker images -a -q|xargs -r docker rmi -f
-
-    - name: docker-compose up on server
-      docker_compose:
-        project_src: "{{docker_src_server}}"
-
-    # - name: netplan apply
-    #   shell: netplan apply
-
-
-- hosts: client
-  become: yes
-  become_method: sudo
-
-  tasks:
-
     - name: copying simulator
       ansible.builtin.copy:
         src: "{{simulator_src}}"
@@ -112,6 +155,9 @@
         owner: "{{client_user}}"
         group: "{{client_user}}"
         mode: '0644'
+
+    - name: restarting net adapter
+      shell: ifconfig enp0s8 down
 
 
     - name: cfg for client host
@@ -122,9 +168,25 @@
           group: root
           mode: '0644'
 
-    - name: prune phase
-      shell:
-        cmd: docker images -a -q|xargs -r docker rmi -f
+    - docker_host_info:
+        images: yes
+        containers: yes
+      register: docker_objects
+
+    - docker_container:
+        name: "{{ item.Id }}"
+        state: absent
+      loop: "{{ docker_objects.containers }}"
+      loop_control:
+        label: "{{ item.Id }}"
+
+    - docker_image:
+        name: item.RepoTags | first
+        state: absent
+        force_absent: yes
+      loop: "{{ docker_objects.images }}"
+      loop_control:
+        label: "{{ item.RepoTags | first }}"
         
     - name: docker-compose up on client
       docker_compose:
