@@ -15,13 +15,13 @@
         pkg: "{{packages}}"
         state: latest
 
-    - name: import netplan cfg for gateway
-      ansible.builtin.template:
-        src: "{{gateway_net_src}}"
-        dest: "{{gateway_net_dest}}"
-        owner: root
-        group: root
-        mode: '0644'
+    # - name: import netplan cfg for gateway
+    #   ansible.builtin.template:
+    #     src: "{{gateway_net_src}}"
+    #     dest: "{{gateway_net_dest}}"
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
 
     - docker_host_info:
         images: yes
@@ -88,16 +88,16 @@
         group: "{{server_user}}"
         mode: '0644'
 
-    - name: restarting net adapter
-      shell: ifconfig enp0s8 down
+    # - name: restarting net adapter
+    #   shell: ifconfig enp0s8 down
 
-    - name: Update netplan cfg on server
-      ansible.builtin.template:
-        src: "{{server_net_src}}"
-        dest: "{{server_net_dest}}"
-        owner: root
-        group: root
-        mode: '0644'
+    # - name: Update netplan cfg on server
+    #   ansible.builtin.template:
+    #     src: "{{server_net_src}}"
+    #     dest: "{{server_net_dest}}"
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
 
     - docker_host_info:
         images: yes
@@ -153,16 +153,16 @@
         group: "{{client_user}}"
         mode: '0644'
 
-    - name: restarting net adapter
-      shell: ifconfig enp0s8 down
+    # - name: restarting net adapter
+    #   shell: ifconfig enp0s8 down
 
-    - name: cfg for client host
-      ansible.builtin.template:
-          src: "{{client_cfg_src}}"
-          dest: "{{client_cfg_dest}}"
-          owner: root
-          group: root
-          mode: '0644'
+    # - name: cfg for client host
+    #   ansible.builtin.template:
+    #       src: "{{client_cfg_src}}"
+    #       dest: "{{client_cfg_dest}}"
+    #       owner: root
+    #       group: root
+    #       mode: '0644'
 
     - docker_host_info:
         images: yes
