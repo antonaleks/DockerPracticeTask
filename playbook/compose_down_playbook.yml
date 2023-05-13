@@ -4,10 +4,6 @@
 
 
   tasks:
-    - name: Stopping containers
-      docker_container:
-        state: stopped
-        all_containers: yes
 
     - docker_host_info:
         images: yes
@@ -30,16 +26,11 @@
         label: "{{ item.RepoTags | first }}"
 
 
-
 - hosts: client
   become: yes
   become_method: sudo
 
   tasks:
-    - name: Stopping containers
-      docker_container:
-        state: stopped
-        all_containers: yes
 
     - docker_host_info:
         images: yes
@@ -67,10 +58,6 @@
   become_method: sudo
 
   tasks:
-    - name: Stopping containers
-      docker_container:
-        state: stopped
-        all_containers: yes
 
     - docker_host_info:
         images: yes
