@@ -50,12 +50,27 @@ Cоздадим образ на основе файла Dockerfile и конте
 ```shell
 $ git clone -b develop https://github.com/Chilipinas/DockerPractice.git
 ```
-### Клиент
+### Клиент (Докер 1)
 После запуска simulator.sh скрипта на виртуальной машине развернется три контейнера с разными симуляторами датчиков. Так же автоматически настроится ip route к серверу gateway.
 
 ![image](assets/images/img_11.png)
 
-### Шлюз
+### Шлюз (Докер 2)
 После запуска gateway.sh будет настроен путь к двум другим серверам, так же будет запущен контейнер с брокером
 
-![image](assets/images/img_11.png)
+![image](assets/images/img_13.png)
+
+### Сервер (Докер 3)
+После запуска server.sh будет настроен ip route а так же запущены три контейнера
+
+![image](assets/images/img_14.png)
+
+![image](assets/images/img_15.png)
+
+![image](assets/images/img_16.png)
+
+Настройка базы данных grafana:
+
+![image](assets/images/img_17.png)
+
+Проверим результаты работы, для этого создадим и настроим Dashboard:wa
