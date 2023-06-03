@@ -44,7 +44,7 @@ Cоздадим образ на основе файла Dockerfile и конте
 С помощью команды загрузим все нужные файлы:
 
 ```shell
-$ git clone -b dev https://github.com/Chilipinas/DockerPractice/tree/develop.git
+$ git clone -b develop https://github.com/Chilipinas/DockerPractice.git
 ```
 
 
