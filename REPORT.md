@@ -46,5 +46,12 @@ Cоздадим образ на основе файла Dockerfile и конте
 ```shell
 $ git clone -b develop https://github.com/Chilipinas/DockerPractice.git
 ```
+### Клиент
+После запуска simulator.sh скрипта на виртуальной машине развернется три контейнера с разными симуляторами датчиков. Так же автоматически настроится ip route к серверу gateway.
 
+![image](assets/images/img_11.png)
 
+### Шлюз
+После запуска gateway.sh будет настроен путь к двум другим серверам, так же будет запущен контейнер с брокером
+
+![image](assets/images/img_11.png)
