@@ -35,6 +35,10 @@ Cоздадим образ на основе файла Dockerfile и конте
 
 ![image](assets/images/img_2.png)
 
+А так же в самом докере появится контейнер с mosquitto брокером:
+
+![image](assets/images/img_12.png)
+
 После запуска симулятора можно будет отследить работу брокера:
 
 ![image](assets/images/img_10.png)
