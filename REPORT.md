@@ -73,4 +73,12 @@ $ git clone -b develop https://github.com/Chilipinas/DockerPractice.git
 
 ![image](assets/images/img_17.png)
 
-Проверим результаты работы, для этого создадим и настроим Dashboard:wa
+Создам три панели с графиками для тока, давления и температуры как на картинке снизу:
+
+![image](assets/images/img_18.png)
+
+Если вывести все графики в один dashboard, то получится следующее:
+
+![image](assets/images/img_19.png)
+
+В конце копируем настройки mqtt.json в файл который будет залит на git.
