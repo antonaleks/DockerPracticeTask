@@ -63,4 +63,6 @@ class Acceleration(Sensor):
 
     def generate_new_value(self):
         self.value = self.step ** 2
+        if (self.value > 5e5):
+            self.value = 5e5
         self.step += 1

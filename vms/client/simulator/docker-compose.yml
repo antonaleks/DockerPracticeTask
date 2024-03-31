@@ -1,50 +1,51 @@
 version: "3"
 
 services:
-  high_temp_sensor:
-    image: antonaleks/data-simulator
+  temp_sensor:
+    image: alexandersynex/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=TEMPHIGHSENS2
+      - SIM_NAME=TEMPSENS2
       - SIM_PERIOD=2
       - SIM_TYPE=temperature
 
-  low_temp_sensor:
-    image: antonaleks/data-simulator
+  temp_low_freq_sensor:
+    image: alexandersynex/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=TEMPLOWSENS4
-      - SIM_PERIOD=4
+      - SIM_NAME=TEMPLOWFREQSENS2
+      - SIM_PERIOD=10
       - SIM_TYPE=temperature
 
-  high_pressure_sensor:
-    image: antonaleks/data-simulator
+  pressure_sensor:
+    image: alexandersynex/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=PRHIGHSENS5
+      - SIM_NAME=PRSENS5
       - SIM_PERIOD=5
       - SIM_TYPE=pressure
 
-  low_pressure_sensor:
-    image: antonaleks/data-simulator
+  current_sensor:
+    image: alexandersynex/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=PRLOWSENS3
-      - SIM_PERIOD=3
-      - SIM_TYPE=pressure
-
-  low_freq_current_sensor:
-    image: antonaleks/data-simulator
-    environment:
-      - SIM_HOST=192.168.1.1
-      - SIM_NAME=CURLOWSENS2
+      - SIM_NAME=CURSENS2
       - SIM_PERIOD=2
       - SIM_TYPE=current
 
-  high_current_sensor:
-    image: antonaleks/data-simulator
+  accel_slow_sensor:
+    image: alexandersynex/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=CURHIGHSENS4
-      - SIM_PERIOD=4
+      - SIM_NAME=ACCELSLOWSENS5
+      - SIM_PERIOD=5
       - SIM_TYPE=current
+
+  accel_fast_sensor:
+    image: alexandersynex/data-simulator
+    environment:
+      - SIM_HOST=192.168.1.1
+      - SIM_NAME=ACCELFASTSENS2
+      - SIM_PERIOD=2
+      - SIM_TYPE=current
+    
