@@ -22,4 +22,4 @@ echo "Adapter enabled"
 echo -e "Configured adapter for subnet C\n"
 
 echo "Loading resources"
-git clone https://github.com/antonaleks/DockerPractice.git
+git clone https://github.com/AlexanderSynex/DockerPractice.git

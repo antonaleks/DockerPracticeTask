@@ -14,62 +14,62 @@ echo "Routing through %s to %s" "192.168.4.0/24" "192.168.28.1"
 ip route add 192.168.4.0/24 via 192.168.28.1
 
 echo "Loading resources"
-git clone https://github.com/antonaleks/DockerPractice.git
+git clone https://github.com/AlexanderSynex/DockerPractice.git
 
-echo "Installing dependecies for web server (Python Flash)"
-pip install flask
+# echo "Installing dependecies for web server (Python Flash)"
+# pip install flask
 
-echo "Web server configuration added %s" "app.py"
-touch app.py
+# echo "Web server configuration added %s" "app.py"
+# touch app.py
 
-cat <<EOF >app.py
-from flask import Flask, request
-app = Flask(__name__)
+# cat <<EOF >app.py
+# from flask import Flask, request
+# app = Flask(__name__)
 
-users = {}
+# users = {}
 
-@app.route('/')
-def home():
-   return "Hello world\n"
+# @app.route('/')
+# def home():
+#    return "Hello world\n"
 
 
-@app.route('/users', methods=['POST'])
-def post():
-   user = request.args.get('user')
+# @app.route('/users', methods=['POST'])
+# def post():
+#    user = request.args.get('user')
    
-   if user is None:
-      return "Can not add user\n"
+#    if user is None:
+#       return "Can not add user\n"
 
-   if user not in users:
-      users[user] = 0
-      return "POST. User added\n"
+#    if user not in users:
+#       users[user] = 0
+#       return "POST. User added\n"
 
-   return f"POST. User already added\n"
+#    return f"POST. User already added\n"
 
 
-@app.route('/users', methods=['PUT', 'GET'])
-def getput():
-   user = request.args.get('user')
+# @app.route('/users', methods=['PUT', 'GET'])
+# def getput():
+#    user = request.args.get('user')
    
-   if request.method == 'GET' and user is None:
-      res = "\nAll users:\n"
-      for usr in users:
-         res += f"\t{usr}\n"
-      return res
+#    if request.method == 'GET' and user is None:
+#       res = "\nAll users:\n"
+#       for usr in users:
+#          res += f"\t{usr}\n"
+#       return res
    
-   if user is None:
-      return "User undefined\n"
+#    if user is None:
+#       return "User undefined\n"
    
-   if user not in users:
-      return "Can not find user\n"
+#    if user not in users:
+#       return "Can not find user\n"
    
-   users[user] += 1
+#    users[user] += 1
 
-   return f"{user} -> {users[user]}\n"
+#    return f"{user} -> {users[user]}\n"
 
 
-app.run(host='0.0.0.0', port=5000)
-EOF
+# app.run(host='0.0.0.0', port=5000)
+# EOF
 
-echo "Starting web server!"
-python app.py
+# echo "Starting web server!"
+# python app.py
