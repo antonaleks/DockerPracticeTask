@@ -1,24 +1,50 @@
 version: "3"
 
 services:
-  temp_sensor:
+  high_temp_sensor:
     image: antonaleks/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=TIRCAHL24
-      - SIM_PERIOD=5
+      - SIM_NAME=TEMPHIGHSENS2
+      - SIM_PERIOD=2
       - SIM_TYPE=temperature
-  pressure_sensor:
+
+  low_temp_sensor:
     image: antonaleks/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=PIRCAHL11
-      - SIM_PERIOD=10
+      - SIM_NAME=TEMPLOWSENS4
+      - SIM_PERIOD=4
+      - SIM_TYPE=temperature
+
+  high_pressure_sensor:
+    image: antonaleks/data-simulator
+    environment:
+      - SIM_HOST=192.168.1.1
+      - SIM_NAME=PRHIGHSENS5
+      - SIM_PERIOD=5
       - SIM_TYPE=pressure
-  current_sensor:
+
+  low_pressure_sensor:
     image: antonaleks/data-simulator
     environment:
       - SIM_HOST=192.168.1.1
-      - SIM_NAME=A0_CURRENT
-      - SIM_PERIOD=1
+      - SIM_NAME=PRLOWSENS3
+      - SIM_PERIOD=3
+      - SIM_TYPE=pressure
+
+  low_freq_current_sensor:
+    image: antonaleks/data-simulator
+    environment:
+      - SIM_HOST=192.168.1.1
+      - SIM_NAME=CURLOWSENS2
+      - SIM_PERIOD=2
+      - SIM_TYPE=current
+
+  high_current_sensor:
+    image: antonaleks/data-simulator
+    environment:
+      - SIM_HOST=192.168.1.1
+      - SIM_NAME=CURHIGHSENS4
+      - SIM_PERIOD=4
       - SIM_TYPE=current
