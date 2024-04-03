@@ -29,14 +29,14 @@ services:
       - SIM_NAME=CO1
       - SIM_PERIOD=3
       - SIM_TYPE=carbon_oxid
-  temp_sensor:
+  temp_sensor_2:
     image: polinazhirakova/data-simulator
     environment:
       - SIM_HOST=192.168.11.100
       - SIM_NAME=TEMP2
       - SIM_PERIOD=4
       - SIM_TYPE=temperature
-  co_sensor:
+  co_sensor_2:
     image: polinazhirakova/data-simulator
     environment:
       - SIM_HOST=192.168.11.100
