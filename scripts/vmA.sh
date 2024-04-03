@@ -13,14 +13,8 @@ echo "Adapter enabled"
 echo "Routing through %s to %s" "192.168.4.0/24" "192.168.28.1"
 ip route add 192.168.4.0/24 via 192.168.28.1
 
-echo "Loading resources"
-git clone https://github.com/AlexanderSynex/DockerPractice.git
-
-mkdir docker
-
-cp.
-cd docker
-docker pull alexandersynex/data-simulator
+echo "Starting Docker compose"
+docker compose up;
 
 # echo "Installing dependecies for web server (Python Flash)"
 # pip install flask
