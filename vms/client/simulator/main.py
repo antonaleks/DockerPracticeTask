@@ -9,7 +9,8 @@ port = 1883 if "SIM_PORT" not in environ.keys() else environ["SIM_PORT"]
 name = "sensor" if "SIM_NAME" not in environ.keys() else environ["SIM_NAME"]
 period = 1 if "SIM_PERIOD" not in environ.keys() else int(environ["SIM_PERIOD"])
 type_sim = "temperature" if "SIM_TYPE" not in environ.keys() else environ["SIM_TYPE"]
-sensors = {"temperature": Temperature, "pressure": Pressure, "current": Current}
+
+sensors = {"temperature": Temperature, "pressure": Pressure, "current": Current, "carbon oxid":CO}
 
 
 def on_publish(client, userdata, result):  # create function for callback
