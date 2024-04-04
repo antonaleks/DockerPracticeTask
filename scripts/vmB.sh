@@ -21,5 +21,19 @@ ip link set macvlanC up
 echo "Adapter enabled"
 echo -e "Configured adapter for subnet C\n"
 
-echo "Loading resources"
-git clone https://github.com/AlexanderSynex/DockerPractice.git
+echo "Loading mqqt broker\n"
+docker pull eclipse-mosquitto
+
+echo "Adding volume folder"
+mkdir -p mosquitto/config
+
+echo "Creating broker config"
+touch mosquitto/config/mosquitto.conf
+
+cat << EOF > mosquitto/config/mosquitto.conf
+listener 1883
+allow_anonymous true
+EOF
+
+echo "Starting broker"
+docker run -v $PWD/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf -p 1883:1883 --name broker --rm eclipse-mosquitto

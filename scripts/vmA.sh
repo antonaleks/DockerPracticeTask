@@ -13,63 +13,64 @@ echo "Adapter enabled"
 echo "Routing through %s to %s" "192.168.4.0/24" "192.168.28.1"
 ip route add 192.168.4.0/24 via 192.168.28.1
 
-echo "Starting Docker compose"
-docker compose up;
+echo "Creating sensors config file"
+touch docker-compose.yml
 
-# echo "Installing dependecies for web server (Python Flash)"
-# pip install flask
+echo "Setting broker ip as env variable"
+export MQTT_IP=192.168.28.1
 
-# echo "Web server configuration added %s" "app.py"
-# touch app.py
+cat <<EOF >docker-compose.yml
+version: "3"
 
-# cat <<EOF >app.py
-# from flask import Flask, request
-# app = Flask(__name__)
+services:
+  temp_sensor:
+    image: alexandersynex/simulator
+    environment:
+      - SIM_HOST=${MQTT_IP}
+      - SIM_NAME=TEMPSENS2
+      - SIM_PERIOD=2
+      - SIM_TYPE=temperature
 
-# users = {}
+  temp_low_freq_sensor:
+    image: alexandersynex/simulator
+    environment:
+      - SIM_HOST=${MQTT_IP}
+      - SIM_NAME=TEMPLOWFREQSENS2
+      - SIM_PERIOD=10
+      - SIM_TYPE=temperature
 
-# @app.route('/')
-# def home():
-#    return "Hello world\n"
+  pressure_sensor:
+    image: alexandersynex/simulator
+    environment:
+      - SIM_HOST=${MQTT_IP}
+      - SIM_NAME=PRSENS5
+      - SIM_PERIOD=5
+      - SIM_TYPE=pressure
 
+  current_sensor:
+    image: alexandersynex/simulator
+    environment:
+      - SIM_HOST=${MQTT_IP}
+      - SIM_NAME=CURSENS2
+      - SIM_PERIOD=2
+      - SIM_TYPE=current
 
-# @app.route('/users', methods=['POST'])
-# def post():
-#    user = request.args.get('user')
-   
-#    if user is None:
-#       return "Can not add user\n"
+  accel_slow_sensor:
+    image: alexandersynex/simulator
+    environment:
+    - SIM_HOST=${MQTT_IP}
+      - SIM_NAME=ACCELSLOWSENS5
+      - SIM_PERIOD=5
+      - SIM_TYPE=current
 
-#    if user not in users:
-#       users[user] = 0
-#       return "POST. User added\n"
+  accel_fast_sensor:
+    image: alexandersynex/simulator
+    environment:
+    - SIM_HOST=${MQTT_IP}
+      - SIM_NAME=ACCELFASTSENS2
+      - SIM_PERIOD=2
+      - SIM_TYPE=current 
+EOF
 
-#    return f"POST. User already added\n"
-
-
-# @app.route('/users', methods=['PUT', 'GET'])
-# def getput():
-#    user = request.args.get('user')
-   
-#    if request.method == 'GET' and user is None:
-#       res = "\nAll users:\n"
-#       for usr in users:
-#          res += f"\t{usr}\n"
-#       return res
-   
-#    if user is None:
-#       return "User undefined\n"
-   
-#    if user not in users:
-#       return "Can not find user\n"
-   
-#    users[user] += 1
-
-#    return f"{user} -> {users[user]}\n"
-
-
-# app.run(host='0.0.0.0', port=5000)
-# EOF
-
-# echo "Starting web server!"
-# python app.py
+echo "Starting sensors environment"
+docker compose up
