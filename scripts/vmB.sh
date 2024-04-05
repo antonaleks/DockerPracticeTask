@@ -1,4 +1,10 @@
 #!/bin/bash
+
+## change the hostname
+hostname mqtthost
+## restart docker
+sudo service docker restart
+
 echo "Configuring adapter for subnet A"
 echo "Creating MacVlan adapter"
 ip link add macvlanA link eth0 type macvlan mode bridge

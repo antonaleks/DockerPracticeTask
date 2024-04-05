@@ -1,4 +1,10 @@
 #!/bin/bash
+
+## change the hostname
+hostname sensorhost
+## restart docker
+sudo service docker restart
+
 echo "Configuring adapter for subnet A"
 echo "Creating MacVlan adapter"
 ip link add macvlan1 link eth0 type macvlan mode bridge
@@ -19,6 +25,7 @@ touch docker-compose.yml
 echo "Setting broker ip as env variable"
 export MQTT_IP=192.168.28.1
 
+echo "Creating containers config"
 cat <<EOF >docker-compose.yml
 version: "3"
 
