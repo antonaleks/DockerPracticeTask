@@ -36,34 +36,7 @@ services:
       - SIM_NAME=PRESS1
       - SIM_PERIOD=7
       - SIM_TYPE=pressure
-  current_sensor:
-    image: polinazhirakova/data-simulator
-    environment:
-      - SIM_HOST=${IP_B}
-      - SIM_NAME=CURRENT1
-      - SIM_PERIOD=5
-      - SIM_TYPE=current
-  co_sensor:
-    image: polinazhirakova/data-simulator
-    environment:
-      - SIM_HOST=${IP_B}
-      - SIM_NAME=CO1
-      - SIM_PERIOD=3
-      - SIM_TYPE=carbon_oxid
-  temp_sensor_2:
-    image: polinazhirakova/data-simulator
-    environment:
-      - SIM_HOST=${IP_B}
-      - SIM_NAME=TEMP2
-      - SIM_PERIOD=4
-      - SIM_TYPE=temperature
-  co_sensor_2:
-    image: polinazhirakova/data-simulator
-    environment:
-      - SIM_HOST=${IP_B}
-      - SIM_NAME=CO2
-      - SIM_PERIOD=3
-      - SIM_TYPE=carbon_oxid
+
 
 EOF
 
