@@ -42,11 +42,12 @@ class Pressure(Sensor):
 
 
 class Current(Sensor):
-    step = 0
-
     def __init__(self, name):
         super().__init__(name)
+        self.step = 0
         self.type = "current"
+        
+        self.generate_new_value()
 
     def generate_new_value(self):
         import math
