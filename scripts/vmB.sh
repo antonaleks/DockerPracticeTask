@@ -1,10 +1,5 @@
 #!/bin/bash
 
-## change the hostname
-hostname mqtthost
-## restart docker
-sudo service docker restart
-
 echo "Configuring adapter for subnet A"
 echo "Creating MacVlan adapter"
 ip link add macvlanA link eth0 type macvlan mode bridge
@@ -37,9 +32,13 @@ echo "Creating broker config"
 touch mosquitto/config/mosquitto.conf
 
 cat << EOF > mosquitto/config/mosquitto.conf
-listener 1883
+listener 1883 0.0.0.0
 allow_anonymous true
 EOF
+
+echo "Closing all ports except mqqt's :1883 for macvlanA adapter"
+iptables -P INPUT DROP
+iptables -A INPUT -i macvlanA -p tcp --dport 1883 -j ACCEPT
 
 echo "Starting broker"
 docker run -v $PWD/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf -p 1883:1883 --name broker --rm eclipse-mosquitto

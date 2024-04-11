@@ -4,7 +4,7 @@ services:
   temp_sensor:
     image: alexandersynex/simulator
     environment:
-      - SIM_HOST=$(MQTT_IP)
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=TEMPSENS2
       - SIM_PERIOD=2
       - SIM_TYPE=temperature
@@ -12,7 +12,7 @@ services:
   temp_low_freq_sensor:
     image: alexandersynex/simulator
     environment:
-      - SIM_HOST=$(MQTT_IP)
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=TEMPLOWFREQSENS2
       - SIM_PERIOD=10
       - SIM_TYPE=temperature
@@ -20,7 +20,7 @@ services:
   pressure_sensor:
     image: alexandersynex/simulator
     environment:
-      - SIM_HOST=$(MQTT_IP)
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=PRSENS5
       - SIM_PERIOD=5
       - SIM_TYPE=pressure
@@ -28,7 +28,7 @@ services:
   current_sensor:
     image: alexandersynex/simulator
     environment:
-      - SIM_HOST=$(MQTT_IP)
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=CURSENS2
       - SIM_PERIOD=2
       - SIM_TYPE=current
@@ -36,7 +36,7 @@ services:
   accel_slow_sensor:
     image: alexandersynex/simulator
     environment:
-      - SIM_HOST=$(MQTT_IP)
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=ACCELSLOWSENS5
       - SIM_PERIOD=5
       - SIM_TYPE=current
@@ -44,7 +44,7 @@ services:
   accel_fast_sensor:
     image: alexandersynex/simulator
     environment:
-      - SIM_HOST=$(MQTT_IP)
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=ACCELFASTSENS2
       - SIM_PERIOD=2
       - SIM_TYPE=current
