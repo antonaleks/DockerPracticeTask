@@ -40,7 +40,7 @@ client1.connect(broker, port=port)  # establish connection
 client1.loop_start()
 while True:
     sensor.generate_new_value()
-    ret= client1.publish(f"sensor/{sensor.name}", sensor.get_data())
+    ret= client1.publish("sensors/" + sensor.type + "/" + sensor.name, sensor.get_data())
     time.sleep(period)
     
 client1.loop_stop()
