@@ -2,7 +2,7 @@ version: "3"
 
 services:
   temp_sensor:
-    image: alexandersynex/simulator
+    image: alexandersynex/data-simulator:latest
     environment:
       - SIM_HOST=192.168.0.104
       - SIM_NAME=TEMPSENS2
@@ -10,7 +10,7 @@ services:
       - SIM_TYPE=temperature
 
   temp_low_freq_sensor:
-    image: alexandersynex/simulator
+    image: alexandersynex/data-simulator:latest
     environment:
       - SIM_HOST=192.168.0.104
       - SIM_NAME=TEMPLOWFREQSENS2
@@ -18,7 +18,7 @@ services:
       - SIM_TYPE=temperature
 
   pressure_sensor:
-    image: alexandersynex/simulator
+    image: alexandersynex/data-simulator:latest
     environment:
       - SIM_HOST=192.168.0.104
       - SIM_NAME=PRSENS5
@@ -26,7 +26,7 @@ services:
       - SIM_TYPE=pressure
 
   current_sensor:
-    image: alexandersynex/simulator
+    image: alexandersynex/data-simulator:latest
     environment:
       - SIM_HOST=192.168.0.104
       - SIM_NAME=CURSENS2
@@ -34,18 +34,18 @@ services:
       - SIM_TYPE=current
 
   accel_slow_sensor:
-    image: alexandersynex/simulator
+    image: alexandersynex/data-simulator:latest
     environment:
       - SIM_HOST=192.168.0.104
       - SIM_NAME=ACCELSLOWSENS5
       - SIM_PERIOD=5
-      - SIM_TYPE=current
+      - SIM_TYPE=acceleration
 
   accel_fast_sensor:
-    image: alexandersynex/simulator
+    image: alexandersynex/data-simulator:latest
     environment:
       - SIM_HOST=192.168.0.104
       - SIM_NAME=ACCELFASTSENS2
       - SIM_PERIOD=2
-      - SIM_TYPE=current
+      - SIM_TYPE=acceleration
     
