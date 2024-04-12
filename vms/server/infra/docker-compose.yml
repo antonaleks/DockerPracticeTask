@@ -22,6 +22,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/:/etc/grafana/
+      # - ./grafana/provisioning/dashboards/default.yaml:/etc/grafana/provisioning/dashboards/main.yaml
 
     environment:
       - GF_SECURITY_ADMIN_USER=admin

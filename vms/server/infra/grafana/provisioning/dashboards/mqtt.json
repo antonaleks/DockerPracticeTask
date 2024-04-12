@@ -29,7 +29,10 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {},
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P4B5EB7AC8565B06F"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -41,27 +44,16 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 80,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -93,22 +85,31 @@
       },
       "id": 3,
       "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
         "tooltip": {
           "mode": "single",
           "sort": "none"
-        }
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
       },
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_V1}"
+            "uid": "P4B5EB7AC8565B06F"
           },
           "groupBy": [
             {
@@ -154,7 +155,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_V1}"
+            "uid": "P4B5EB7AC8565B06F"
           },
           "groupBy": [
             {
@@ -200,10 +201,13 @@
         }
       ],
       "title": "Panel: CO",
-      "type": "timeseries"
+      "type": "barchart"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P4B5EB7AC8565B06F"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -288,7 +292,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_V1}"
+            "uid": "P4B5EB7AC8565B06F"
           },
           "groupBy": [
             {
@@ -332,11 +336,14 @@
           ]
         }
       ],
-      "title": "Panel Title",
+      "title": "Panel: Current (Time series)",
       "type": "timeseries"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P4B5EB7AC8565B06F"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -358,14 +365,14 @@
               "viz": false
             },
             "insertNulls": false,
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -415,14 +422,25 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_V1}"
+            "uid": "P4B5EB7AC8565B06F"
           },
-          "groupBy": [],
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
           "measurement": "mqtt_consumer",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"value\" FROM \"mqtt_consumer\" WHERE (\"topic\" = 'sensors/current/A0_CURRENT') AND $timeFilter",
-          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -432,12 +450,16 @@
                   "value"
                 ],
                 "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
           "tags": [
             {
-              "key": "topic",
+              "key": "topic::tag",
               "operator": "=",
               "value": "sensors/temp/TEMP1"
             }
@@ -446,7 +468,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_V1}"
+            "uid": "P4B5EB7AC8565B06F"
           },
           "groupBy": [
             {
@@ -597,11 +619,14 @@
           ]
         }
       ],
-      "title": "Panel: Current",
+      "title": "Panel: Current (Gauge)",
       "type": "gauge"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P4B5EB7AC8565B06F"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -684,7 +709,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_V1}"
+            "uid": "P4B5EB7AC8565B06F"
           },
           "groupBy": [
             {
@@ -739,13 +764,13 @@
     "list": []
   },
   "time": {
-    "from": "2024-04-11T19:46:38.000Z",
+    "from": "now-2m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "New dashboard",
+  "title": "My dashboard",
   "uid": "bdift4lxq3vgge",
-  "version": 1,
+  "version": 8,
   "weekStart": ""
 }
