@@ -17,11 +17,28 @@ def on_publish(client, userdata, result):  # create function for callback
     pass
 
 
+print(
+    "\nbroker",
+    broker,
+    "\nport",
+    port,
+    "\nname",
+    name,
+    "\nperiod",
+    period,
+    "\ntype_sim",
+    type_sim,
+    "\nsensors",
+    sensors,
+)
+
 sensor = sensors[type_sim](name=name)
 client1 = paho.Client(sensor.name)  # create client object
 client1.on_publish = on_publish  # assign function to callback
 client1.connect(broker, port)  # establish connection
 while True:
     sensor.generate_new_value()
-    ret = client1.publish("sensors/" + sensor.type + "/" + sensor.name, sensor.get_data())  # publish
+    ret = client1.publish(
+        "sensors/" + sensor.type + "/" + sensor.name, sensor.get_data()
+    )  # publish
     time.sleep(period)
