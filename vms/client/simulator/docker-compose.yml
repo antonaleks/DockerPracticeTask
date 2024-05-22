@@ -2,23 +2,30 @@ version: "3"
 
 services:
   temp_sensor:
-    image: antonaleks/data-simulator
+    image: hanz0m4/data-simulator
     environment:
-      - SIM_HOST=192.168.1.1
-      - SIM_NAME=TIRCAHL24
-      - SIM_PERIOD=5
+      - SIM_HOST=192.168.0.112
+      - SIM_NAME=TEMPER1
+      - SIM_PERIOD=4
       - SIM_TYPE=temperature
   pressure_sensor:
-    image: antonaleks/data-simulator
+    image: hanz0m4/data-simulator
     environment:
-      - SIM_HOST=192.168.1.1
-      - SIM_NAME=PIRCAHL11
-      - SIM_PERIOD=10
+      - SIM_HOST=192.168.0.112
+      - SIM_NAME=PRESS1
+      - SIM_PERIOD=6
       - SIM_TYPE=pressure
   current_sensor:
-    image: antonaleks/data-simulator
+    image: hanz0m4/data-simulator
     environment:
-      - SIM_HOST=192.168.1.1
+      - SIM_HOST=192.168.0.112
       - SIM_NAME=A0_CURRENT
-      - SIM_PERIOD=1
+      - SIM_PERIOD=8
       - SIM_TYPE=current
+  humidity:
+    image: hanz0m4/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.112
+      - SIM_NAME=HUMID1
+      - SIM_PERIOD=4
+      - SIM_TYPE=humidity

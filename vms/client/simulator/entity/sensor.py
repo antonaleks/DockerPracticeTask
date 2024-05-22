@@ -52,3 +52,16 @@ class Current(Sensor):
         import math
         self.value = math.sin(self.step)
         self.step = self.step + 1
+
+
+class Humidity(Sensor):
+    step = 0
+
+    def __init__(self,name):
+        super().__init__(name)
+        self.type = "humidity"
+
+    def generate_new_value(self):
+        self.value = 30+40*random.random()
+        self.step = self.step + 5
+
