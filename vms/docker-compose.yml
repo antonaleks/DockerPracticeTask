@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  # temp_sensor:
+  #   image: arsenier/data-simulator
+  #   environment:
+  #     - SIM_HOST=127.0.0.1
+  #     - SIM_NAME=TIRCAHL24
+  #     - SIM_PERIOD=5
+  #     - SIM_TYPE=temperature
+  #     - SIM_PORT=1883
+  # pressure_sensor:
+  #   image: arsenier/data-simulator
+  #   environment:
+  #     - SIM_HOST=192.168.1.1
+  #     - SIM_NAME=PIRCAHL11
+  #     - SIM_PERIOD=10
+  #     - SIM_TYPE=pressure
+  # current_sensor:
+  #   image: arsenier/data-simulator
+  #   environment:
+  #     - SIM_HOST=192.168.1.1
+  #     - SIM_NAME=A0_CURRENT
+  #     - SIM_PERIOD=1
+  #     - SIM_TYPE=current
+
+  broker:
+    image: eclipse-mosquitto
+    container_name: broker
+    volumes:
+      - ./gateway/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+      - "1883:1883"

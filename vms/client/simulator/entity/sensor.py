@@ -50,5 +50,20 @@ class Current(Sensor):
 
     def generate_new_value(self):
         import math
+
         self.value = math.sin(self.step)
         self.step = self.step + 1
+
+
+class Radiation(Sensor):
+    step = 0
+
+    def __init__(self, name):
+        super().__init__(name)
+        self.type = "radiation"
+
+    def generate_new_value(self):
+        import math
+
+        self.value = math.sin(self.step)
+        self.step = self.step + 0.1
