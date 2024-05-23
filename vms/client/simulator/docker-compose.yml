@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  temp_sensor:
+    image: arsenier/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.101
+      - SIM_PORT=1883
+      - SIM_NAME=TEMP_STREET
+      - SIM_PERIOD=5
+      - SIM_TYPE=temperature
+  pressure_sensor:
+    image: arsenier/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.101
+      - SIM_NAME=PRESSURE_COLD
+      - SIM_PERIOD=6
+      - SIM_TYPE=pressure
+  current_sensor:
+    image: arsenier/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.101
+      - SIM_NAME=CURRENT_PUMP
+      - SIM_PERIOD=1
+      - SIM_TYPE=current
+  pressure_sensor2:
+    image: arsenier/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.101
+      - SIM_NAME=PRESSURE_HOT
+      - SIM_PERIOD=4
+      - SIM_TYPE=pressure
+  current_sensor2:
+    image: arsenier/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.101
+      - SIM_NAME=CURRENT_DRAIN
+      - SIM_PERIOD=1
+      - SIM_TYPE=current
+  radiation_sensor:
+    image: arsenier/data-simulator
+    environment:
+      - SIM_HOST=192.168.0.101
+      - SIM_NAME=RADIATION
+      - SIM_PERIOD=10
+      - SIM_TYPE=radiation
+
+
+# networks:
+#   home:
+#     bridge
