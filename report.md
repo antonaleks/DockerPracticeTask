@@ -67,9 +67,9 @@ CMD ["python", "main.py"]
 `paho_mqtt==1.6.1`
 
 Также, добавил текущего пользователя ВМ в группу *docker*:
-`sudo usermod -a -G docker gavrilenko_1` для server
-`sudo usermod -a -G docker gavrilenko_2` для gateway
-`sudo usermod -a -G docker gavrilenko_3` для client
+* `sudo usermod -a -G docker gavrilenko_1` для server
+* `sudo usermod -a -G docker gavrilenko_2` для gateway
+* `sudo usermod -a -G docker gavrilenko_3` для client
 
 Теперь создадим образ при помощи команды:
 `docker build -t vespuchka/simulator . `
