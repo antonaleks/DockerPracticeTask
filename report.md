@@ -96,7 +96,7 @@ services:
   temp_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.0.100
+      - SIM_HOST=192.168.20.1
       - SIM_NAME=TEMP1
       - SIM_PERIOD=2
       - SIM_TYPE=temperature
@@ -104,7 +104,7 @@ services:
   pressure_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.0.100
+      - SIM_HOST=192.168.20.1
       - SIM_NAME=PRESS1
       - SIM_PERIOD=2
       - SIM_TYPE=pressure
@@ -112,7 +112,7 @@ services:
   current_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.0.100
+      - SIM_HOST=192.168.20.1
       - SIM_NAME=CUR1
       - SIM_PERIOD=6
       - SIM_TYPE=current
@@ -120,7 +120,7 @@ services:
   humidity_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.0.100
+      - SIM_HOST=192.168.20.1
       - SIM_NAME=HUM1
       - SIM_PERIOD=4
       - SIM_TYPE=humidity
@@ -128,7 +128,7 @@ services:
   temp_slow_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.0.100
+      - SIM_HOST=192.168.20.1
       - SIM_NAME=TEMP2
       - SIM_PERIOD=15
       - SIM_TYPE=temperature
@@ -136,7 +136,7 @@ services:
   humidity_slow_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.0.100
+      - SIM_HOST=192.168.20.1
       - SIM_NAME=HUM2
       - SIM_PERIOD=15
       - SIM_TYPE=humidity
@@ -151,7 +151,6 @@ services:
 listener 1883
 allow_anonymous true
 ```
-Для его подключения к образу используем docker volumes через флаг -v при запуске контейнера.
 
 Также сформируем docker-compose файл.
 *docker-compose*
@@ -197,6 +196,16 @@ services:
 
 *telegraf.conf*
 ```c
-servers = ["tcp://192.168.0.101:1883"] # адрес vm с mqtt-брокером
+servers = ["tcp://192.168.11.1:1883"] # адрес vm с mqtt-брокером
 ```
+### IfluxDB
 
+Для *Influxdb* используем образ `influxdb:1.8`. Загрузим его при помощи команды `docker pull influxdb:1.8`
+
+Теперь настроим конфигурационный файл `influxdb-init.iql` для корректной работы influxdb. Укажем в нём какую таблицу создавать - *sensors*:
+
+```SQL
+CREATE database sensors
+CREATE USER telegraf WITH PASSWORD 'telegraf' WITH ALL PRIVILEGES
+```
+### Grafana
