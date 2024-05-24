@@ -307,7 +307,7 @@ networks:
 Логи брокера на машине B:
 
 <p align="center">
-<img width=100% src = "assets\images\img_servLogs.png.png">
+<img width=100% src = "assets\images\img_servLogs.png">
 Рисунок 8 - Подключение telegraf в логах на машине B
 </p>
 
