@@ -75,13 +75,15 @@ CMD ["python", "main.py"]
 `docker build -t vespuchka/simulator . `
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_DockerBuild.png">
+Рисунок 1 - Создание образа
 </p>
 
 Получили docker образ, из которого можно развернуть контейнер:
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_CreatedImg.png">
+Рисунок 2 - Созданный образ
 </p>
 
 Для запуска нескольких датчиков развернём docker-compose. Сконфигурируем файл *docker-compose.yml*, в котором укажем:
@@ -173,22 +175,32 @@ sudo iptables -A INPUT -i enp0s8 -p tcp --syn --dport 1883 -m conntrack --ctstat
 sudo iptables -A INPUT -i enp0s9 -p tcp --syn --dport 1883 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
 ```
 
+Теперь запустим контейнер с брокером:
+
+<p align="center">
+<img width=100% src = "assets\images\img_MosqCont.png">
+Рисунок 3 - Запущенный контейнер с брокером
+</p>
+
 Далее запустим на ВМ клиента одновременно 6 контейнеров, симулирующих работу датчиков:
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_6Cont.png">
+Рисунок 4 - Запуск 6 контейнеров
 </p>
 
 При этом брокер отобразит подключение:
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_6logRecieved.png">
+Рисунок 5 - Логи брокера при подключении датчиков
 </p>
 
 Проверим также данные от датчиков в MQTT explorer:
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_MQTT.png">
+Рисунок 6 - Данные в MQTT explorer
 </p>
 
 ## Отображение данных
@@ -288,13 +300,15 @@ networks:
 Теперь можно выполнять команду `docker-compose up`:
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_ServCont.png">
+Рисунок 7 - Запуск контейнеров
 </p>
 
 Логи брокера на машине B:
 
 <p align="center">
-<img width=100% src = "assets\images\.png">
+<img width=100% src = "assets\images\img_servLogs.png.png">
+Рисунок 8 - Подключение telegraf в логах на машине B
 </p>
 
 ### Настройка dashboard в Grafana
@@ -302,24 +316,24 @@ networks:
 После запуска всех необходимых контейнеров, в раузере переходим по `192.168.0.102:3000`
 
 <p align="center">
-<img width=100% src = "assets\images\grafana-login.png">
+<img width=100% src = "assets\images\img_Start.png">
 </p>
 
 Для проверки соединения перейдем в Menu -> Connections -> Data sources. Находим в истончиках InfluxDB и проверяем подключение:
 <p align="center">
-<img width=100% src = "assets\images\grafana-influx-test.png">
+<img width=100% src = "assets\images\img_Sost.png">
 </p>
 
-После переходим через Меню в раздел Dashboards, где создаем собственный дашбоард
+После переходим через Меню в раздел Dashboards, где создаем собственный дашбоард. 
 
 <p align="center">
-<img width=100% src = "assets\images\grafana-new-view.png">
+<img width=100% src = "assets\images\img_New.png">
 </p>
 
 Для отображения данных необходимо настроить запросы (query)
 
 <p align="center">
-<img width=100% src = "assets\images\query.png">
+<img width=100% src = "assets\images\img_Dash.png.png">
 </p>
 
 После создания необходимо количества графиков, отображающих данные с Simluator, экспортируем дашборд как JSON-файл
@@ -329,5 +343,5 @@ networks:
 Настроенный в нашем случае дашборд выглядит вот так:
 
 <p align="center">
-<img width=100% src = "assets\images\query.png">
+<img width=100% src = "assets\images\img_DONE.png">
 </p>
