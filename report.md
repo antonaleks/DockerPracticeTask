@@ -98,7 +98,7 @@ services:
   temp_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.20.1
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=TEMP1
       - SIM_PERIOD=2
       - SIM_TYPE=temperature
@@ -106,7 +106,7 @@ services:
   pressure_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.20.1
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=PRESS1
       - SIM_PERIOD=2
       - SIM_TYPE=pressure
@@ -114,7 +114,7 @@ services:
   current_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.20.1
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=CUR1
       - SIM_PERIOD=6
       - SIM_TYPE=current
@@ -122,7 +122,7 @@ services:
   humidity_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.20.1
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=HUM1
       - SIM_PERIOD=4
       - SIM_TYPE=humidity
@@ -130,7 +130,7 @@ services:
   temp_slow_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.20.1
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=TEMP2
       - SIM_PERIOD=15
       - SIM_TYPE=temperature
@@ -138,15 +138,13 @@ services:
   humidity_slow_sensor:
     image: vespuchka/simulator:latest
     environment:
-      - SIM_HOST=192.168.20.1
+      - SIM_HOST=192.168.0.104
       - SIM_NAME=HUM2
       - SIM_PERIOD=15
       - SIM_TYPE=humidity
 ```
 
 ## Настройка брокера - Mosquitto
-
-Получим образ *eclipse-mosquitto* MQTT-брокера, при помощи команды `docker pull eclipse-mosquitto`
 
 Для настройки брокера необходимо создать конфигурационный файл *mosquitto.conf* со следующим содержимымы:
 ```c
@@ -167,11 +165,13 @@ services:
     ports:
       - "1883:1883"
 ```
-Создадим контейнер брокера, результат:
-
-<p align="center">
-<img width=100% src = "assets\images\.png">
-</p>
+Напоследок сконфигурируем порты:
+```
+sudo iptables -A OUTPUT -o enp0s8 -p tcp --syn --dport 1883 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A OUTPUT -o enp0s9 -p tcp --syn --dport 1883 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -i enp0s8 -p tcp --syn --dport 1883 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -i enp0s9 -p tcp --syn --dport 1883 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+```
 
 Далее запустим на ВМ клиента одновременно 6 контейнеров, симулирующих работу датчиков:
 
@@ -179,7 +179,13 @@ services:
 <img width=100% src = "assets\images\.png">
 </p>
 
-При этом брокер отобразит:
+При этом брокер отобразит подключение:
+
+<p align="center">
+<img width=100% src = "assets\images\.png">
+</p>
+
+Проверим также данные от датчиков в MQTT explorer:
 
 <p align="center">
 <img width=100% src = "assets\images\.png">
@@ -198,7 +204,7 @@ services:
 
 *telegraf.conf*
 ```c
-servers = ["tcp://192.168.11.1:1883"] # адрес vm с mqtt-брокером
+servers = ["tcp://192.168.0.104:1883"] # адрес vm с mqtt-брокером
 ```
 ### IfluxDB
 
@@ -206,8 +212,122 @@ servers = ["tcp://192.168.11.1:1883"] # адрес vm с mqtt-брокером
 
 Теперь настроим конфигурационный файл `influxdb-init.iql` для корректной работы influxdb. Укажем в нём какую таблицу создавать - *sensors*:
 
+*influxdb-init.iql*
 ```SQL
 CREATE database sensors
 CREATE USER telegraf WITH PASSWORD 'telegraf' WITH ALL PRIVILEGES
 ```
 ### Grafana
+
+Данные для отображения датчиков берутся из InfluxDB. Для настройки в конфигурационном файле `default.yaml` в папке `datasourse` необходимо прописать следующее:
+
+*default.yaml*
+```yaml
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB_v1
+    type: influxdb
+    access: proxy
+    database: sensors
+    user: telegraf
+    url: http://influxdb:8086
+    jsonData:
+      httpMode: GET
+    secureJsonData:
+      password: telegraf
+```
+Теперь запустим все три контейнера при помощи docker-compose, но для начала сконфигурируем `docker-compose.yml`:
+
+*docker-compose.yml*
+```yml
+version: "3"
+services:
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    volumes:
+      - ./influxdb/scripts:/docker-entrypoint-initdb.d
+      - influx_data:/var/lib/influxdb
+    networks:
+      - server-net
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    volumes:
+      - ./telegraf:/etc/telegraf:ro
+    restart: unless-stopped
+    networks:
+      - server-net
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/:/etc/grafana/
+
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - server-net
+
+
+volumes:
+  influx_data: {}
+  grafana_data: {}
+
+networks:
+  server-net: {}
+```
+
+Теперь можно выполнять команду `docker-compose up`:
+
+<p align="center">
+<img width=100% src = "assets\images\.png">
+</p>
+
+Логи брокера на машине B:
+
+<p align="center">
+<img width=100% src = "assets\images\.png">
+</p>
+
+### Настройка dashboard в Grafana
+
+После запуска всех необходимых контейнеров, в раузере переходим по `192.168.0.102:3000`
+
+<p align="center">
+<img width=100% src = "assets\images\grafana-login.png">
+</p>
+
+Для проверки соединения перейдем в Menu -> Connections -> Data sources. Находим в истончиках InfluxDB и проверяем подключение:
+<p align="center">
+<img width=100% src = "assets\images\grafana-influx-test.png">
+</p>
+
+После переходим через Меню в раздел Dashboards, где создаем собственный дашбоард
+
+<p align="center">
+<img width=100% src = "assets\images\grafana-new-view.png">
+</p>
+
+Для отображения данных необходимо настроить запросы (query)
+
+<p align="center">
+<img width=100% src = "assets\images\query.png">
+</p>
+
+После создания необходимо количества графиков, отображающих данные с Simluator, экспортируем дашборд как JSON-файл
+
+Для этого находим функцию `Share` -> ``Export` -> `Save to file`. Сохраненный файл помещаем в папку `vms\server\infra\grafana\provisioning\dashboards\mqtt.json`
+
+Настроенный в нашем случае дашборд выглядит вот так:
+
+<p align="center">
+<img width=100% src = "assets\images\query.png">
+</p>
