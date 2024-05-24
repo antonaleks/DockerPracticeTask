@@ -333,7 +333,7 @@ networks:
 Для отображения данных необходимо настроить запросы (query)
 
 <p align="center">
-<img width=100% src = "assets\images\img_Dash.png.png">
+<img width=100% src = "assets\images\img_Dash.png">
 </p>
 
 После создания необходимо количества графиков, отображающих данные с Simluator, экспортируем дашборд как JSON-файл
