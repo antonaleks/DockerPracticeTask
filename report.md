@@ -59,9 +59,9 @@ COPY . .
 CMD ["python", "main.py"]
 ```
 
-В ```requirements.txt``` укажем (выбрал просто текущую версию):
+В ```requirements.txt``` укажем:
 ```
-paho_mqtt==2.1.0
+paho_mqtt==1.6.1
 ```
 
 Добавим текущего пользователя машины в группу docker с помощью
@@ -74,3 +74,15 @@ sudo usermod -aG docker $USER
 ```
 docker build -t matveeey/data-simulator .
 ```
+![plot](./assets/images/report_images/0_docker_build_first_run.png)
+![plot](./assets/images/report_images/1_docker_build_first_run.png)
+
+Сборка прошла успешно. Можно переходить к следующему этапу.
+
+# 2. Запуск Mosquitto брокера
+Для настройки MQTT необходимо создать конфиг mosquitto.conf:
+```
+listener 1883
+allowanonymous true
+```
+Созд
