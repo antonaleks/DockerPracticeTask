@@ -52,3 +52,14 @@ class Current(Sensor):
         import math
         self.value = math.sin(self.step)
         self.step = self.step + 1
+
+class Acceleration(Sensor):
+    step = 0
+
+    def __init__(self, name):
+        super().__init__(name)
+        self.type = "acceleration"
+
+    def generate_new_value(self):
+        import math
+        self.value = 7 * math.sin(self.step)
