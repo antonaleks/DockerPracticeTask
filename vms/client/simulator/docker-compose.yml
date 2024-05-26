@@ -22,3 +22,10 @@ services:
       - SIM_NAME=A0_CURRENT
       - SIM_PERIOD=1
       - SIM_TYPE=current
+  acceleration_sensor:
+    image: matveeey/data-simulator
+    environment:
+      - SIM_HOST=192.168.1.1
+      - SIM_NAME=ACC0_CURRENT
+      - SIM_PERIOD=15
+      - SIM_TYPE=acceleration
