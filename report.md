@@ -127,3 +127,106 @@ ip6tables-save > /etc/iptables/rules.v6
 # 2. Отображение данных
 ## Telegraf
 Настроим Telegraf, который будет подписываться на MQTT с данными от датчиков:
+В <em>telegraf.conf</em> добавим строчку
+```
+servers = ["tcp://192.168.0.104:1883"] # адрес vm с mqtt-брокером
+```
+
+## InfluxDB
+Используем образ <em>influxdb:1.8</em>
+Настроим конфиг ```influxdb-init.iql```, указав название таблицы <em>sensors</em>:
+
+```
+CREATE database sensors
+CREATE USER telegraf WITH PASSWORD 'telegraf' WITH ALL PRIVILEGES
+```
+
+## Grafana
+Данные берутся из db из influx. В конфиге ```default.yaml``` укажем:
+```
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB_v1
+    type: influxdb
+    access: proxy
+    database: sensors
+    user: telegraf
+    url: http://influxdb:8086
+    jsonData:
+      httpMode: GET
+    secureJsonData:
+      password: telegraf
+```
+
+И запустим три контейнера с помощью ```docker-compose.yml```:
+```
+version: "3"
+services:
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    volumes:
+      - ./influxdb/scripts:/docker-entrypoint-initdb.d
+      - influx_data:/var/lib/influxdb
+    networks:
+      - server-net
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    volumes:
+      - ./telegraf:/etc/telegraf:ro
+    restart: unless-stopped
+    networks:
+      - server-net
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/:/etc/grafana/
+
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - server-net
+
+
+volumes:
+  influx_data: {}
+  grafana_data: {}
+
+networks:
+  server-net: {}
+```
+
+
+![plot](./assets/images/report_images/5_infra_run.png)
+
+Логи из брокера:
+
+![plot](./assets/images/report_images/6_infa_from_broker.png)
+
+Переходим по 192.168.0.18:3000 и логинимся дефолтными admin/admin:
+
+
+![plot](./assets/images/report_images/7_grafana_web_1.png)
+
+В источниках присутствует InfluxDB:
+
+![plot](./assets/images/report_images/8_grafana_web_2.png)
+
+
+Настроим запросы:
+
+![plot](./assets/images/report_images/9_grafana_queries.png)
+
+Итоговый дашборд:
+
+![plot](./assets/images/report_images/10_grafana_web_3.png)
+
