@@ -110,3 +110,20 @@ iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
 ```
 Запустим наш контейнер:
+
+![plot](./assets/images/report_images/2_mqtt_run.png)
+
+Брокер запущен и работает.
+
+Теперь запустим на клиенте симуляторы датчиков:
+
+![plot](./assets/images/report_images/3_sim_run.png)
+
+На брокер прилетают пакеты:
+
+![plot](./assets/images/report_images/4_mqtt_run_listening.png)
+
+
+# 2. Отображение данных
+## Telegraf
+Настроим Telegraf, который будет подписываться на MQTT с данными от датчиков:
