@@ -2,23 +2,31 @@ version: "3"
 
 services:
   temp_sensor:
-    image: antonaleks/data-simulator
+    image:  souhair/sensor-simulator:v0.0.1
     environment:
-      - SIM_HOST=192.168.1.1
+      - SIM_HOST=$SIM_HOST_IP
       - SIM_NAME=TIRCAHL24
       - SIM_PERIOD=5
       - SIM_TYPE=temperature
   pressure_sensor:
-    image: antonaleks/data-simulator
+    image:  souhair/sensor-simulator:v0.0.1
     environment:
-      - SIM_HOST=192.168.1.1
+      - SIM_HOST=$SIM_HOST_IP
       - SIM_NAME=PIRCAHL11
       - SIM_PERIOD=10
       - SIM_TYPE=pressure
   current_sensor:
-    image: antonaleks/data-simulator
+    image:  souhair/sensor-simulator:v0.0.1
     environment:
-      - SIM_HOST=192.168.1.1
+      - SIM_HOST=$SIM_HOST_IP
       - SIM_NAME=A0_CURRENT
       - SIM_PERIOD=1
       - SIM_TYPE=current
+  humidity_sensor:
+    image:  souhair/sensor-simulator:v0.0.1
+    environment:
+      - SIM_HOST=$SIM_HOST_IP
+      - SIM_NAME=H0_HUMIDITY
+      - SIM_PERIOD=10
+      - SIM_TYPE=humidity
+

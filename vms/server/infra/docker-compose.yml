@@ -9,7 +9,7 @@ services:
     networks:
       - server-net
   telegraf:
-    image: telegraf
+    image: telegraf:1.26.2
     container_name: telegraf
     volumes:
       - ./telegraf:/etc/telegraf:ro
@@ -17,7 +17,7 @@ services:
     networks:
       - server-net
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:9.5.1-ubuntu
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
