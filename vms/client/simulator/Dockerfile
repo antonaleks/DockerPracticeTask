@@ -1,6 +1,10 @@
-FROM python:alpine3.19
+FROM golang:1.23 AS builder
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY go.mod go.sum ./
+RUN go mod download
 COPY . .
-CMD ["python", "main.py"]
+RUN CGO_ENABLED=0 GOOS=linux go build -o myapp .
+FROM alpine:latest
+WORKDIR /root/
+COPY --from=builder /app/myapp .
+CMD ["./myapp"]
