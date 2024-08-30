@@ -2,23 +2,49 @@ version: "3"
 
 services:
   temp_sensor:
-    image: antonaleks/data-simulator
+    image: alena/sensor
     environment:
-      - SIM_HOST=192.168.1.1
-      - SIM_NAME=TIRCAHL24
-      - SIM_PERIOD=5
+      - SIM_HOST=192.168.0.104
+      - SIM_NAME=TEMPSENS2
+      - SIM_PERIOD=2
       - SIM_TYPE=temperature
-  pressure_sensor:
-    image: antonaleks/data-simulator
+
+  temp_low_freq_sensor:
+    image: alena/sensor
     environment:
-      - SIM_HOST=192.168.1.1
-      - SIM_NAME=PIRCAHL11
+      - SIM_HOST=192.168.0.104
+      - SIM_NAME=TEMPLOWFREQSENS2
       - SIM_PERIOD=10
-      - SIM_TYPE=pressure
-  current_sensor:
-    image: antonaleks/data-simulator
+      - SIM_TYPE=temperature
+
+  pressure_sensor:
+    image: alena/sensor
     environment:
-      - SIM_HOST=192.168.1.1
-      - SIM_NAME=A0_CURRENT
-      - SIM_PERIOD=1
+      - SIM_HOST=192.168.0.104
+      - SIM_NAME=PRSENS5
+      - SIM_PERIOD=5
+      - SIM_TYPE=pressure
+
+  current_sensor:
+    image: alena/sensor
+    environment:
+      - SIM_HOST=192.168.0.104
+      - SIM_NAME=CURSENS2
+      - SIM_PERIOD=2
       - SIM_TYPE=current
+
+  accel_slow_sensor:
+    image: alena/sensor
+    environment:
+      - SIM_HOST=192.168.0.104
+      - SIM_NAME=ACCELSLOWSENS5
+      - SIM_PERIOD=5
+      - SIM_TYPE=acceleration
+
+  accel_fast_sensor:
+    image: alena/sensor
+    environment:
+      - SIM_HOST=192.168.0.104
+      - SIM_NAME=ACCELFASTSENS2
+      - SIM_PERIOD=2
+      - SIM_TYPE=acceleration

@@ -1,6 +1,5 @@
 FROM python:alpine3.19
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install paho_mqtt==1.6.1
 COPY . .
 CMD ["python", "main.py"]
