@@ -33,7 +33,6 @@ services:
     networks:
       - server-net
 
-
 volumes:
   influx_data: {}
   grafana_data: {}
