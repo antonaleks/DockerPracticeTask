@@ -1,4 +1,5 @@
 import random
+import math
 
 
 class Sensor:
@@ -39,6 +40,20 @@ class Pressure(Sensor):
 
     def generate_new_value(self):
         self.value = random.random() + self.step - 56.48 + 25 * 7
+
+
+# создадим новый класс
+
+class Radiation(Sensor):
+    step = 0
+
+    def __init__(self, name):
+        super().__init__(name)
+        self.type = "radiation"
+
+    def generate_new_value(self):
+        self.value = math.sin(self.step)
+        self.step = self.step + 0.1
 
 
 class Current(Sensor):
